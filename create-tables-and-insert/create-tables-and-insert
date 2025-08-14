@@ -17,7 +17,6 @@ use("EcoRide");
 db.createCollection("motoristas");
 
 /*
-    Explicação da coleção "motoristas":
     Cada motorista possui atributos como: CPF, nome, CNH (Carteira Nacional de Habilitação), avaliação,
     telefone e informações do veículo (modelo, placa e cor).
 */
@@ -68,7 +67,6 @@ db.motoristas.insertMany([
 db.createCollection("passageiros");
 
 /*
-    Explicação da coleção "passageiros":
     Cada passageiro possui atributos como: CPF, nome, avaliação e telefone para contato.
 */
 
@@ -106,7 +104,6 @@ db.passageiros.insertMany([
 db.createCollection("rotas");
 
 /*
-    Explicação da coleção "rotas":
     Cada rota possui um nome, um ponto de partida, um ponto de destino, a distância estimada 
     e o CPF do motorista que geralmente realiza essa rota.
 */
@@ -142,7 +139,6 @@ db.rotas.insertMany([
 db.createCollection("agendamentos");
 
 /*
-    Explicação da coleção "agendamentos":
     Esta coleção centraliza as informações, unindo motoristas, passageiros e rotas.
     Cada agendamento tem uma data e hora, o número de vagas, o status (ex: Agendada, Concluída),
     e os documentos aninhados do motorista, da rota e dos passageiros confirmados.
