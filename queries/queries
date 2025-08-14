@@ -1,0 +1,161 @@
+// 1. USE: Selecionando o banco de dados para executar as operações.
+use("CaronaSustentavelDB");
+
+// 27. RENAMECOLLECTION: Renomeando a coleção "rotas" para "rotas_ativas".
+// (Para o script funcionar, vamos renomear de volta no final).
+db.rotas.renameCollection("rotas_ativas");
+
+// 16. $WHERE, 18. FUNCTION, 19. PRETTY: 
+// Procura um motorista com o CPF especificado usando uma função Javascript.
+db.motoristas.find({$where: function() {
+    return (this.cpf == "11122233344")
+}
+}).pretty();
+
+// 2. FIND, 14. SORT, 19. PRETTY: 
+// Exibindo os dados de todos os passageiros em ordem alfabética de nome.
+db.passageiros.find().sort({nome: 1}).pretty();
+
+// 10. COUNT (COUNTDOCUMENTS): 
+// Contando a quantidade de agendamentos de carona para a motorista "Beatriz Oliveira".
+db.agendamentos.countDocuments({"motorista_info.nome": "Beatriz Oliveira"});
+
+// 4. AGGREGATE, 5. MATCH, 7. GTE, 8. GROUP, 11. MAX, 14. SORT:
+// Agrupando agendamentos por rota para rotas com distância maior ou igual a 10km, 
+// e exibindo a maior avaliação de motorista em cada uma dessas rotas.
+db.agendamentos.aggregate([
+  {$match: {"rota_info.distancia_km": {$gte: 10}}},
+  {$group: {_id: '$rota_info.nome_rota', max_avaliacao_motorista: {$max: '$motorista_info.avaliacao'}}},
+  {$sort: {'_id': 1}}
+]);
+
+// 22. TEXT, 23. SEARCH: 
+// Buscando rotas que contenham o termo "CIn" em sua descrição.
+// Primeiro, criamos o índice de texto.
+db.rotas_ativas.createIndex({nome_rota: 'text', ponto_destino: 'text'});
+// Agora, realizamos a busca.
+db.rotas_ativas.find({$text: {$search: 'CIn'}});
+
+// 3. SIZE: 
+// Procurando agendamentos que tenham exatamente 2 passageiros confirmados.
+db.agendamentos.find({passageiros_confirmados: {$size: 2}}, {_id: 0, "rota_info.nome_rota": 1});
+
+// 6. PROJECT: 
+// Projetando apenas o nome e o modelo do veículo dos motoristas, excluindo o _id.
+db.motoristas.aggregate([
+    {$project: {nome: 1, 'veiculo.modelo': 1, _id: 0}}
+]);
+
+// 9. SUM, 8. GROUP, 4. AGGREGATE: 
+// Agregando os agendamentos pelo status e contando o número de ocorrências de cada um.
+db.agendamentos.aggregate([
+  {
+    "$group": {
+      _id: "$status",
+      total: {$sum: 1}
+    }
+  }
+]);
+
+// 12. AVG, 8. GROUP: 
+// Buscando a média geral de avaliação de todos os motoristas cadastrados.
+db.motoristas.aggregate([
+  {$group: {_id: null, media_geral_avaliacao: {$avg: '$avaliacao'}}}
+]);
+
+// 13. EXISTS: 
+// Buscando passageiros que (hipoteticamente) não possuem um telefone cadastrado.
+db.passageiros.find({telefone: {$exists: false}}).count();
+
+// 15. LIMIT, 14. SORT: 
+// Buscando os 2 motoristas com as maiores avaliações.
+db.motoristas.find().sort({"avaliacao": -1}).limit(2);
+
+// 20. ALL:
+// Para usar o $all, primeiro adicionamos um campo de "tags" aos motoristas.
+db.motoristas.updateOne({cpf: "11122233344"}, {$set: {tags: ["aceita_animais", "carro_grande", "viagem_longa"]}});
+db.motoristas.updateOne({cpf: "22233344455"}, {$set: {tags: ["aceita_animais", "viagem_curta"]}});
+// Agora, buscando motoristas que tenham AMBAS as tags "aceita_animais" e "carro_grande".
+db.motoristas.find({tags: {$all: ["aceita_animais", "carro_grande"]}});
+
+// 25. UPDATE, 21. SET: 
+// Atualizando o número de telefone de um passageiro.
+db.passageiros.updateOne({cpf: "77788899900"}, {$set: {telefone: "(81) 98888-9999"}});
+
+// 6. PROJECT, 24. FILTER, 28. COND: 
+// Buscando agendamentos e exibindo apenas os passageiros com avaliação maior ou igual a 4.9.
+db.agendamentos.aggregate([
+   {
+      $project: {
+        _id: 0,
+        "rota_info.nome_rota": 1,
+         passageiros_alta_avaliacao: {
+            $filter: {
+               input: "$passageiros_confirmados",
+               as: "passageiro",
+               cond: { $gte: [ "$$passageiro.avaliacao", 4.9 ] }
+            }
+         }
+      }
+   }
+]);
+
+// 31. ADDTOSET, 30. FINDONE: 
+// Adicionando um novo passageiro a um agendamento existente, garantindo que não haja duplicatas.
+db.agendamentos.updateOne(
+    { "rota_info.codigo_rota": "BV-CINFO" },
+    { $addToSet: { passageiros_confirmados: db.passageiros.findOne({cpf: "88899900011"}) } }
+);
+db.agendamentos.find({ "rota_info.codigo_rota": "BV-CINFO" }).pretty();
+
+// 29. LOOKUP: 
+// Juntando informações de rotas com os agendamentos correspondentes.
+db.rotas_ativas.aggregate([
+   {
+      $lookup: {
+            from: "agendamentos", // a coleção para juntar
+            localField: "codigo_rota", // campo da coleção "rotas_ativas"
+            foreignField: "rota_info.codigo_rota", // campo da coleção "agendamentos"
+            as: "viagens_agendadas" // nome do novo array
+        }
+   }
+]).pretty();
+
+// 26. SAVE (com UPDATEONE e upsert):
+// Atualiza os dados de um motorista existente ou o insere caso não exista (comportamento do save).
+db.motoristas.updateOne(
+    {cpf: "44455566677"},
+    {$set: {
+        nome: "Ricardo Andrade",
+        cnh: "55667788990",
+        avaliacao: Decimal128("4.6"),
+        telefone: "(81) 91122-3344",
+        veiculo: {
+            modelo: "Renault Kwid",
+            placa: "XYZ1234",
+            cor: "Laranja"
+        }
+    }},
+    {upsert: true} // A opção upsert realiza a mágica
+);
+
+// 17. MAPREDUCE, 18. FUNCTION:
+// Mapeia o número de vagas oferecidas por cada motorista e reduz para a soma total de vagas.
+var mapFunction = function() {
+  emit(this.motorista_info.nome, this.vagas_oferecidas);
+};
+
+var reduceFunction = function(keyMotorista, valuesVagas) {
+  return Array.sum(valuesVagas);
+};
+
+db.agendamentos.mapReduce(
+  mapFunction,
+  reduceFunction,
+  { out: "total_vagas_por_motorista" }
+);
+// Exibindo o resultado da coleção gerada pelo MapReduce.
+db.total_vagas_por_motorista.find().sort({value: -1});
+
+// Voltando a coleção de rotas para o nome original para manter a consistência.
+db.rotas_ativas.renameCollection("rotas");

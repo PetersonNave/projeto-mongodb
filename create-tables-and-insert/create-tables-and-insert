@@ -1,0 +1,187 @@
+// Conectando ao banco de dados da plataforma de caronas.
+use("EcoRide");
+
+/*
+    Nosso Banco de Dados é sobre uma "Plataforma de Caronas Sustentáveis". Para isso, criamos quatro 
+    coleções: "motoristas", "passageiros", "rotas" e "agendamentos".
+    
+    - Um motorista pode ter várias rotas cadastradas.
+    - Uma rota pode ser usada em vários agendamentos de carona.
+    - Um agendamento consiste em um motorista, uma rota, uma data/hora e uma lista de passageiros.
+    - Cada passageiro pode participar de múltiplos agendamentos de carona.
+*/
+
+/*
+    1. Criando a coleção de "motoristas".
+*/
+db.createCollection("motoristas");
+
+/*
+    Explicação da coleção "motoristas":
+    Cada motorista possui atributos como: CPF, nome, CNH (Carteira Nacional de Habilitação), avaliação,
+    telefone e informações do veículo (modelo, placa e cor).
+*/
+
+// Inserindo motoristas na coleção.
+db.motoristas.insertMany([
+    {
+        cpf: "11122233344",
+        nome: "Carlos Silva",
+        cnh: "01234567890",
+        avaliacao: Decimal128("4.8"),
+        telefone: "(81) 98877-6655",
+        veiculo: {
+            modelo: "Toyota Corolla",
+            placa: "PDV1234",
+            cor: "Prata"
+        }
+    },
+    {
+        cpf: "22233344455",
+        nome: "Beatriz Oliveira",
+        cnh: "09876543210",
+        avaliacao: Decimal128("4.9"),
+        telefone: "(81) 99988-7766",
+        veiculo: {
+            modelo: "Honda Civic",
+            placa: "KJI5678",
+            cor: "Preto"
+        }
+    },
+    {
+        cpf: "33344455566",
+        nome: "Fernando Pereira",
+        cnh: "11223344556",
+        avaliacao: Decimal128("4.7"),
+        telefone: "(87) 98899-1122",
+        veiculo: {
+            modelo: "Hyundai HB20",
+            placa: "ABC9876",
+            cor: "Branco"
+        }
+    }
+]);
+
+/*
+    2. Criando a coleção de "passageiros".
+*/
+db.createCollection("passageiros");
+
+/*
+    Explicação da coleção "passageiros":
+    Cada passageiro possui atributos como: CPF, nome, avaliação e telefone para contato.
+*/
+
+// Inserindo passageiros na coleção.
+db.passageiros.insertMany([
+    {
+        cpf: "77788899900",
+        nome: "Ana Souza",
+        avaliacao: Decimal128("4.9"),
+        telefone: "(81) 97766-5544"
+    },
+    {
+        cpf: "88899900011",
+        nome: "Lucas Costa",
+        avaliacao: Decimal128("4.8"),
+        telefone: "(87) 96655-4433"
+    },
+    {
+        cpf: "99900011122",
+        nome: "Mariana Almeida",
+        avaliacao: Decimal128("5.0"),
+        telefone: "(81) 95544-3322"
+    },
+    {
+        cpf: "00011122233",
+        nome: "Juliana Lima",
+        avaliacao: Decimal128("4.7"),
+        telefone: "(81) 94433-2211"
+    }
+]);
+
+/*
+    3. Criando a coleção de "rotas".
+*/
+db.createCollection("rotas");
+
+/*
+    Explicação da coleção "rotas":
+    Cada rota possui um nome, um ponto de partida, um ponto de destino, a distância estimada 
+    e o CPF do motorista que geralmente realiza essa rota.
+*/
+
+// Inserindo rotas na coleção.
+db.rotas.insertMany([
+    {
+        codigo_rota: "REC-CINFO",
+        nome_rota: "Recife Antigo -> CIn/UFPE",
+        ponto_partida: "Rua do Apolo, Recife - PE",
+        ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+        distancia_km: 15.5
+    },
+    {
+        codigo_rota: "CAR-CAA",
+        nome_rota: "Centro de Caruaru -> CAA/UFPE",
+        ponto_partida: "Praça do Rosário, Caruaru - PE",
+        ponto_destino: "Centro Acadêmico do Agreste, UFPE, Caruaru - PE",
+        distancia_km: 7.2
+    },
+    {
+        codigo_rota: "BV-CINFO",
+        nome_rota: "Boa Viagem -> CIn/UFPE",
+        ponto_partida: "Av. Boa Viagem, 123, Recife - PE",
+        ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+        distancia_km: 12.0
+    }
+]);
+
+/*
+    4. Criando a coleção de "agendamentos".
+*/
+db.createCollection("agendamentos");
+
+/*
+    Explicação da coleção "agendamentos":
+    Esta coleção centraliza as informações, unindo motoristas, passageiros e rotas.
+    Cada agendamento tem uma data e hora, o número de vagas, o status (ex: Agendada, Concluída),
+    e os documentos aninhados do motorista, da rota e dos passageiros confirmados.
+    
+    Para vincular as informações, usamos "findOne" para buscar os documentos
+    em suas respectivas coleções e inseri-los no array correspondente.
+*/
+
+// Inserindo agendamentos na coleção.
+db.agendamentos.insertMany([
+    {
+        data_hora_saida: new ISODate("2025-09-10T07:00:00Z"),
+        vagas_oferecidas: 3,
+        status: "Agendada",
+        motorista_info: db.motoristas.findOne({cpf: "11122233344"}),
+        rota_info: db.rotas.findOne({codigo_rota: "REC-CINFO"}),
+        passageiros_confirmados: [
+            db.passageiros.findOne({cpf: "77788899900"}),
+            db.passageiros.findOne({cpf: "99900011122"})
+        ]
+    },
+    {
+        data_hora_saida: new ISODate("2025-09-10T07:30:00Z"),
+        vagas_oferecidas: 2,
+        status: "Agendada",
+        motorista_info: db.motoristas.findOne({cpf: "22233344455"}),
+        rota_info: db.rotas.findOne({codigo_rota: "BV-CINFO"}),
+        passageiros_confirmados: [
+            db.passageiros.findOne({cpf: "00011122233"})
+        ]
+    },
+    {
+        data_hora_saida: new ISODate("2025-09-11T08:00:00Z"),
+        vagas_oferecidas: 3,
+        status: "Concluída",
+        motorista_info: db.motoristas.findOne({cpf: "33344455566"}),
+        rota_info: db.rotas.findOne({codigo_rota: "CAR-CAA"}),
+        passageiros_confirmados: [
+            db.passageiros.findOne({cpf: "88899900011"})
+        ]
+    }
+]);
