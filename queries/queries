@@ -1,5 +1,5 @@
 // 1. USE: Selecionando o banco de dados para executar as operações.
-use("CaronaSustentavelDB");
+use("EcoRide");
 
 // 27. RENAMECOLLECTION: Renomeando a coleção "rotas" para "rotas_ativas".
 // (Para o script funcionar, vamos renomear de volta no final).
