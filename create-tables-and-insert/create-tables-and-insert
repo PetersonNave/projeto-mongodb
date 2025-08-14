@@ -23,21 +23,141 @@ db.createCollection("motoristas");
 
 // Inserindo motoristas na coleção.
 db.motoristas.insertMany([
-  { cpf: "11122233344", nome: "Carlos Silva", cnh: "01234567890", avaliacao: Decimal128("4.8"), telefone: "(81) 98877-6655", veiculo: { modelo: "Toyota Corolla", placa: "PDV1234", cor: "Prata" } },
-    { cpf: "22233344455", nome: "Beatriz Oliveira", cnh: "09876543210", avaliacao: Decimal128("4.9"), telefone: "(81) 99988-7766", veiculo: { modelo: "Honda Civic", placa: "KJI5678", cor: "Preto" } },
-    { cpf: "33344455566", nome: "Fernando Pereira", cnh: "11223344556", avaliacao: Decimal128("4.7"), telefone: "(87) 98899-1122", veiculo: { modelo: "Hyundai HB20", placa: "ABC9876", cor: "Branco" } },
-    { cpf: "44455566677", nome: "Renata Martins", cnh: "22334455667", avaliacao: Decimal128("4.6"), telefone: "(81) 93322-1100", veiculo: { modelo: "Ford Ka", placa: "XYZ1234", cor: "Vermelho" } },
-    { cpf: "55566677788", nome: "Gustavo Ramos", cnh: "33445566778", avaliacao: Decimal128("4.7"), telefone: "(87) 95511-2233", veiculo: { modelo: "Chevrolet Onix", placa: "LMN9876", cor: "Cinza" } },
-    { cpf: "66677788899", nome: "Patrícia Souza", cnh: "44556677889", avaliacao: Decimal128("4.8"), telefone: "(81) 92233-4455", veiculo: { modelo: "Renault Sandero", placa: "QWE1234", cor: "Azul" } },
-    { cpf: "77788899911", nome: "Rafael Costa", cnh: "55667788990", avaliacao: Decimal128("4.7"), telefone: "(87) 98822-3344", veiculo: { modelo: "Fiat Argo", placa: "RTY5678", cor: "Preto" } },
-    { cpf: "88899900022", nome: "Juliana Lima", cnh: "66778899001", avaliacao: Decimal128("4.9"), telefone: "(81) 97711-2233", veiculo: { modelo: "Volkswagen Polo", placa: "UIO9876", cor: "Branco" } },
-    { cpf: "99900011133", nome: "Mateus Almeida", cnh: "77889900112", avaliacao: Decimal128("4.6"), telefone: "(87) 96655-4433", veiculo: { modelo: "Toyota Etios", placa: "PAS1234", cor: "Cinza" } },
-    { cpf: "00011122244", nome: "Carla Fernandes", cnh: "88990011223", avaliacao: Decimal128("4.8"), telefone: "(81) 94433-2211", veiculo: { modelo: "Honda Fit", placa: "QAZ5678", cor: "Vermelho" } },
-    { cpf: "11133355577", nome: "Leonardo Rocha", cnh: "99001122334", avaliacao: Decimal128("4.7"), telefone: "(87) 97744-3322", veiculo: { modelo: "Chevrolet Prisma", placa: "WSX1234", cor: "Preto" } },
-    { cpf: "22244466688", nome: "Isabela Martins", cnh: "00112233445", avaliacao: Decimal128("4.9"), telefone: "(81) 98855-6677", veiculo: { modelo: "Ford Fiesta", placa: "EDC5678", cor: "Azul" } },
-    { cpf: "33355577799", nome: "Thiago Lima", cnh: "11223344556", avaliacao: Decimal128("4.6"), telefone: "(87) 96633-1122", veiculo: { modelo: "Hyundai HB20S", placa: "RFV9876", cor: "Prata" } },
-    { cpf: "44466688800", nome: "Amanda Souza", cnh: "22334455667", avaliacao: Decimal128("4.7"), telefone: "(81) 93311-2233", veiculo: { modelo: "Volkswagen Gol", placa: "TGB1234", cor: "Branco" } },
-    { cpf: "55577799911", nome: "Ricardo Pereira", cnh: "33445566778", avaliacao: Decimal128("4.8"), telefone: "(87) 95544-3322", veiculo: { modelo: "Nissan Versa", placa: "YHN5678", cor: "Cinza" } }
+  {
+    cpf: "11122233344",
+    nome: "Carlos Silva",
+    cnh: "01234567890",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(81) 98877-6655",
+    veiculo: { modelo: "Toyota Corolla", placa: "PDV1234", cor: "Prata" },
+    tags: ["aceita_animais", "carro_grande", "viagem_longa"],
+  },
+  {
+    cpf: "22233344455",
+    nome: "Beatriz Oliveira",
+    cnh: "09876543210",
+    avaliacao: Decimal128("4.9"),
+    telefone: "(81) 99988-7766",
+    veiculo: { modelo: "Honda Civic", placa: "KJI5678", cor: "Preto" },
+    tags: ["aceita_animais", "carro_grande"],
+  },
+  {
+    cpf: "33344455566",
+    nome: "Fernando Pereira",
+    cnh: "11223344556",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(87) 98899-1122",
+    veiculo: { modelo: "Hyundai HB20", placa: "ABC9876", cor: "Branco" },
+    tags: ["carro_grande", "viagem_longa"],
+  },
+  {
+    cpf: "44455566677",
+    nome: "Renata Martins",
+    cnh: "22334455667",
+    avaliacao: Decimal128("4.6"),
+    telefone: "(81) 93322-1100",
+    veiculo: { modelo: "Ford Ka", placa: "XYZ1234", cor: "Vermelho" },
+    tags: ["carro_grande"],
+  },
+  {
+    cpf: "55566677788",
+    nome: "Gustavo Ramos",
+    cnh: "33445566778",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(87) 95511-2233",
+    veiculo: { modelo: "Chevrolet Onix", placa: "LMN9876", cor: "Cinza" },
+    tags: ["carro_grande"],
+  },
+  {
+    cpf: "66677788899",
+    nome: "Patrícia Souza",
+    cnh: "44556677889",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(81) 92233-4455",
+    veiculo: { modelo: "Renault Sandero", placa: "QWE1234", cor: "Azul" },
+    tags: [],
+  },
+  {
+    cpf: "77788899911",
+    nome: "Rafael Costa",
+    cnh: "55667788990",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(87) 98822-3344",
+    veiculo: { modelo: "Fiat Argo", placa: "RTY5678", cor: "Preto" },
+    tags: ["aceita_animais"],
+  },
+  {
+    cpf: "88899900022",
+    nome: "Juliana Lima",
+    cnh: "66778899001",
+    avaliacao: Decimal128("4.9"),
+    telefone: "(81) 97711-2233",
+    veiculo: { modelo: "Volkswagen Polo", placa: "UIO9876", cor: "Branco" },
+    tags: ["carro_grande"],
+  },
+  {
+    cpf: "99900011133",
+    nome: "Mateus Almeida",
+    cnh: "77889900112",
+    avaliacao: Decimal128("4.6"),
+    telefone: "(87) 96655-4433",
+    veiculo: { modelo: "Toyota Etios", placa: "PAS1234", cor: "Cinza" },
+    tags: ["7_lugares", "carro_grande"],
+  },
+  {
+    cpf: "00011122244",
+    nome: "Carla Fernandes",
+    cnh: "88990011223",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(81) 94433-2211",
+    veiculo: { modelo: "Honda Fit", placa: "QAZ5678", cor: "Vermelho" },
+    tags: ["aceita_animais"],
+  },
+  {
+    cpf: "11133355577",
+    nome: "Leonardo Rocha",
+    cnh: "99001122334",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(87) 97744-3322",
+    veiculo: { modelo: "Chevrolet Prisma", placa: "WSX1234", cor: "Preto" },
+    tags: ["viagem_longa"],
+  },
+  {
+    cpf: "22244466688",
+    nome: "Isabela Martins",
+    cnh: "00112233445",
+    avaliacao: Decimal128("4.9"),
+    telefone: "(81) 98855-6677",
+    veiculo: { modelo: "Ford Fiesta", placa: "EDC5678", cor: "Azul" },
+    tags: [],
+  },
+  {
+    cpf: "33355577799",
+    nome: "Thiago Lima",
+    cnh: "11223344556",
+    avaliacao: Decimal128("4.6"),
+    telefone: "(87) 96633-1122",
+    veiculo: { modelo: "Hyundai HB20S", placa: "RFV9876", cor: "Prata" },
+    tags: [],
+  },
+  {
+    cpf: "44466688800",
+    nome: "Amanda Souza",
+    cnh: "22334455667",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(81) 93311-2233",
+    veiculo: { modelo: "Volkswagen Gol", placa: "TGB1234", cor: "Branco" },
+    tags: ["carro_grande, aceita_animais"],
+  },
+  {
+    cpf: "55577799911",
+    nome: "Ricardo Pereira",
+    cnh: "33445566778",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(87) 95544-3322",
+    veiculo: { modelo: "Nissan Versa", placa: "YHN5678", cor: "Cinza" },
+    tags: ["aceita_animais"],
+  },
 ]);
 
 /*
@@ -51,21 +171,96 @@ db.createCollection("passageiros");
 
 // Inserindo passageiros na coleção.
 db.passageiros.insertMany([
-  { cpf: "77788899900", nome: "Ana Souza", avaliacao: Decimal128("4.9"), telefone: "(81) 97766-5544" },
-    { cpf: "88899900011", nome: "Lucas Costa", avaliacao: Decimal128("4.8"), telefone: "(87) 96655-4433" },
-    { cpf: "99900011122", nome: "Mariana Almeida", avaliacao: Decimal128("5.0"), telefone: "(81) 95544-3322" },
-    { cpf: "00011122233", nome: "Juliana Lima", avaliacao: Decimal128("4.7"), telefone: "(81) 94433-2211" },
-    { cpf: "11122233355", nome: "Pedro Henrique", avaliacao: Decimal128("4.8"), telefone: "(81) 91234-5566" },
-    { cpf: "22233344466", nome: "Fernanda Castro", avaliacao: Decimal128("4.9"), telefone: "(87) 97654-3322" },
-    { cpf: "33344455577", nome: "Rafael Lima", avaliacao: Decimal128("4.7"), telefone: "(81) 98765-4433" },
-    { cpf: "44455566688", nome: "Camila Torres", avaliacao: Decimal128("4.8"), telefone: "(81) 98888-1122" },
-    { cpf: "55566677799", nome: "Gabriel Santos", avaliacao: Decimal128("4.7"), telefone: "(87) 97777-3344" },
-    { cpf: "66677788800", nome: "Letícia Gomes", avaliacao: Decimal128("4.9"), telefone: "(81) 96666-2211" },
-    { cpf: "77799900011", nome: "Vitor Rocha", avaliacao: Decimal128("4.6"), telefone: "(87) 95555-4433" },
-    { cpf: "88811122233", nome: "Beatriz Lima", avaliacao: Decimal128("4.8"), telefone: "(81) 94444-3322" },
-    { cpf: "99922233344", nome: "Thiago Alves", avaliacao: Decimal128("4.7"), telefone: "(87) 93333-2211" },
-    { cpf: "00033344455", nome: "Patrícia Ferreira", avaliacao: Decimal128("4.9"), telefone: "(81) 92222-5544" },
-    { cpf: "11144455566", nome: "André Souza", avaliacao: Decimal128("4.8"), telefone: "(87) 91111-3322" }
+  {
+    cpf: "77788899900",
+    nome: "Ana Souza",
+    avaliacao: Decimal128("4.9"),
+    telefone: "(81) 97766-5544",
+  },
+  {
+    cpf: "88899900011",
+    nome: "Lucas Costa",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(87) 96655-4433",
+  },
+  {
+    cpf: "99900011122",
+    nome: "Mariana Almeida",
+    avaliacao: Decimal128("5.0"),
+    telefone: "(81) 95544-3322",
+  },
+  {
+    cpf: "00011122233",
+    nome: "Juliana Lima",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(81) 94433-2211",
+  },
+  {
+    cpf: "11122233355",
+    nome: "Pedro Henrique",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(81) 91234-5566",
+  },
+  {
+    cpf: "22233344466",
+    nome: "Fernanda Castro",
+    avaliacao: Decimal128("4.9"),
+    telefone: "(87) 97654-3322",
+  },
+  {
+    cpf: "33344455577",
+    nome: "Rafael Lima",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(81) 98765-4433",
+  },
+  {
+    cpf: "44455566688",
+    nome: "Camila Torres",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(81) 98888-1122",
+  },
+  {
+    cpf: "55566677799",
+    nome: "Gabriel Santos",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(87) 97777-3344",
+  },
+  {
+    cpf: "66677788800",
+    nome: "Letícia Gomes",
+    avaliacao: Decimal128("4.9"),
+    telefone: "(81) 96666-2211",
+  },
+  {
+    cpf: "77799900011",
+    nome: "Vitor Rocha",
+    avaliacao: Decimal128("4.6"),
+    telefone: "(87) 95555-4433",
+  },
+  {
+    cpf: "88811122233",
+    nome: "Beatriz Lima",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(81) 94444-3322",
+  },
+  {
+    cpf: "99922233344",
+    nome: "Thiago Alves",
+    avaliacao: Decimal128("4.7"),
+    telefone: "(87) 93333-2211",
+  },
+  {
+    cpf: "00033344455",
+    nome: "Patrícia Ferreira",
+    avaliacao: Decimal128("4.9"),
+    telefone: "(81) 92222-5544",
+  },
+  {
+    cpf: "11144455566",
+    nome: "André Souza",
+    avaliacao: Decimal128("4.8"),
+    telefone: "(87) 91111-3322",
+  },
 ]);
 
 /*
@@ -80,21 +275,111 @@ db.createCollection("rotas");
 
 // Inserindo rotas na coleção.
 db.rotas.insertMany([
-   { codigo_rota: "REC-CINFO", nome_rota: "Recife Antigo -> CIn/UFPE", ponto_partida: "Rua do Apolo, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 15.5 },
-    { codigo_rota: "CAR-CAA", nome_rota: "Centro de Caruaru -> CAA/UFPE", ponto_partida: "Praça do Rosário, Caruaru - PE", ponto_destino: "Centro Acadêmico do Agreste, UFPE, Caruaru - PE", distancia_km: 7.2 },
-    { codigo_rota: "BV-CINFO", nome_rota: "Boa Viagem -> CIn/UFPE", ponto_partida: "Av. Boa Viagem, 123, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 12.0 },
-    { codigo_rota: "IP-CINFO", nome_rota: "Ilha do Pina -> CIn/UFPE", ponto_partida: "Av. Gov. Agamenon Magalhães, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 10.3 },
-    { codigo_rota: "GR-CINFO", nome_rota: "Graças -> CIn/UFPE", ponto_partida: "Rua do Príncipe, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 8.0 },
-    { codigo_rota: "SAN-CINFO", nome_rota: "Santo Amaro -> CIn/UFPE", ponto_partida: "Av. Santo Amaro, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 13.2 },
-    { codigo_rota: "ESP-CINFO", nome_rota: "Espinheiro -> CIn/UFPE", ponto_partida: "Rua do Espinheiro, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 11.5 },
-    { codigo_rota: "AFO-CINFO", nome_rota: "Afogados -> CIn/UFPE", ponto_partida: "Av. dos Afogados, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 14.0 },
-    { codigo_rota: "DOU-CINFO", nome_rota: "Dois Irmãos -> CIn/UFPE", ponto_partida: "Rua Dois Irmãos, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 12.8 },
-    { codigo_rota: "CAX-CINFO", nome_rota: "Caxangá -> CIn/UFPE", ponto_partida: "Av. Caxangá, Recife - PE", ponto_destino: "Centro de Informática, UFPE, Recife - PE", distancia_km: 13.5 },
-    { codigo_rota: "IP-CAR", nome_rota: "Ilha do Pina -> Caruaru", ponto_partida: "Av. Gov. Agamenon Magalhães, Recife - PE", ponto_destino: "Praça do Rosário, Caruaru - PE", distancia_km: 80.0 },
-    { codigo_rota: "BV-CAR", nome_rota: "Boa Viagem -> Caruaru", ponto_partida: "Av. Boa Viagem, 123, Recife - PE", ponto_destino: "Praça do Rosário, Caruaru - PE", distancia_km: 78.0 },
-    { codigo_rota: "GR-CAR", nome_rota: "Graças -> Caruaru", ponto_partida: "Rua do Príncipe, Recife - PE", ponto_destino: "Praça do Rosário, Caruaru - PE", distancia_km: 82.0 },
-    { codigo_rota: "SAN-CAR", nome_rota: "Santo Amaro -> Caruaru", ponto_partida: "Av. Santo Amaro, Recife - PE", ponto_destino: "Praça do Rosário, Caruaru - PE", distancia_km: 79.5 },
-    { codigo_rota: "ESP-CAR", nome_rota: "Espinheiro -> Caruaru", ponto_partida: "Rua do Espinheiro, Recife - PE", ponto_destino: "Praça do Rosário, Caruaru - PE", distancia_km: 81.2 }
+  {
+    codigo_rota: "REC-CINFO",
+    nome_rota: "Recife Antigo -> CIn/UFPE",
+    ponto_partida: "Rua do Apolo, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 15.5,
+  },
+  {
+    codigo_rota: "CAR-CAA",
+    nome_rota: "Centro de Caruaru -> CAA/UFPE",
+    ponto_partida: "Praça do Rosário, Caruaru - PE",
+    ponto_destino: "Centro Acadêmico do Agreste, UFPE, Caruaru - PE",
+    distancia_km: 7.2,
+  },
+  {
+    codigo_rota: "BV-CINFO",
+    nome_rota: "Boa Viagem -> CIn/UFPE",
+    ponto_partida: "Av. Boa Viagem, 123, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 12.0,
+  },
+  {
+    codigo_rota: "IP-CINFO",
+    nome_rota: "Ilha do Pina -> CIn/UFPE",
+    ponto_partida: "Av. Gov. Agamenon Magalhães, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 10.3,
+  },
+  {
+    codigo_rota: "GR-CINFO",
+    nome_rota: "Graças -> CIn/UFPE",
+    ponto_partida: "Rua do Príncipe, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 8.0,
+  },
+  {
+    codigo_rota: "SAN-CINFO",
+    nome_rota: "Santo Amaro -> CIn/UFPE",
+    ponto_partida: "Av. Santo Amaro, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 13.2,
+  },
+  {
+    codigo_rota: "ESP-CINFO",
+    nome_rota: "Espinheiro -> CIn/UFPE",
+    ponto_partida: "Rua do Espinheiro, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 11.5,
+  },
+  {
+    codigo_rota: "AFO-CINFO",
+    nome_rota: "Afogados -> CIn/UFPE",
+    ponto_partida: "Av. dos Afogados, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 14.0,
+  },
+  {
+    codigo_rota: "DOU-CINFO",
+    nome_rota: "Dois Irmãos -> CIn/UFPE",
+    ponto_partida: "Rua Dois Irmãos, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 12.8,
+  },
+  {
+    codigo_rota: "CAX-CINFO",
+    nome_rota: "Caxangá -> CIn/UFPE",
+    ponto_partida: "Av. Caxangá, Recife - PE",
+    ponto_destino: "Centro de Informática, UFPE, Recife - PE",
+    distancia_km: 13.5,
+  },
+  {
+    codigo_rota: "IP-CAR",
+    nome_rota: "Ilha do Pina -> Caruaru",
+    ponto_partida: "Av. Gov. Agamenon Magalhães, Recife - PE",
+    ponto_destino: "Praça do Rosário, Caruaru - PE",
+    distancia_km: 80.0,
+  },
+  {
+    codigo_rota: "BV-CAR",
+    nome_rota: "Boa Viagem -> Caruaru",
+    ponto_partida: "Av. Boa Viagem, 123, Recife - PE",
+    ponto_destino: "Praça do Rosário, Caruaru - PE",
+    distancia_km: 78.0,
+  },
+  {
+    codigo_rota: "GR-CAR",
+    nome_rota: "Graças -> Caruaru",
+    ponto_partida: "Rua do Príncipe, Recife - PE",
+    ponto_destino: "Praça do Rosário, Caruaru - PE",
+    distancia_km: 82.0,
+  },
+  {
+    codigo_rota: "SAN-CAR",
+    nome_rota: "Santo Amaro -> Caruaru",
+    ponto_partida: "Av. Santo Amaro, Recife - PE",
+    ponto_destino: "Praça do Rosário, Caruaru - PE",
+    distancia_km: 79.5,
+  },
+  {
+    codigo_rota: "ESP-CAR",
+    nome_rota: "Espinheiro -> Caruaru",
+    ponto_partida: "Rua do Espinheiro, Recife - PE",
+    ponto_destino: "Praça do Rosário, Caruaru - PE",
+    distancia_km: 81.2,
+  },
 ]);
 
 /*
@@ -113,170 +398,150 @@ db.createCollection("agendamentos");
 
 // Inserindo agendamentos na coleção.
 db.agendamentos.insertMany([
-   {
-        data_hora_saida: new ISODate("2025-09-10T07:00:00Z"),
-        vagas_oferecidas: 3,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "11122233344"}),
-        rota_info: db.rotas.findOne({codigo_rota: "REC-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "77788899900"}),
-            db.passageiros.findOne({cpf: "99900011122"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-10T07:30:00Z"),
-        vagas_oferecidas: 2,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "22233344455"}),
-        rota_info: db.rotas.findOne({codigo_rota: "BV-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "00011122233"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-11T08:00:00Z"),
-        vagas_oferecidas: 3,
-        status: "Concluída",
-        motorista_info: db.motoristas.findOne({cpf: "33344455566"}),
-        rota_info: db.rotas.findOne({codigo_rota: "CAR-CAA"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "88899900011"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-11T07:00:00Z"),
-        vagas_oferecidas: 3,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "44455566677"}),
-        rota_info: db.rotas.findOne({codigo_rota: "IP-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "11122233355"}),
-            db.passageiros.findOne({cpf: "22233344466"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-11T07:30:00Z"),
-        vagas_oferecidas: 2,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "55566677788"}),
-        rota_info: db.rotas.findOne({codigo_rota: "GR-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "33344455577"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-12T08:00:00Z"),
-        vagas_oferecidas: 4,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "11122233344"}),
-        rota_info: db.rotas.findOne({codigo_rota: "BV-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "77788899900"}),
-            db.passageiros.findOne({cpf: "00011122233"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-12T09:00:00Z"),
-        vagas_oferecidas: 3,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "66677788899"}),
-        rota_info: db.rotas.findOne({codigo_rota: "SAN-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "44455566688"}),
-            db.passageiros.findOne({cpf: "55566677799"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-12T09:30:00Z"),
-        vagas_oferecidas: 2,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "77788899911"}),
-        rota_info: db.rotas.findOne({codigo_rota: "ESP-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "66677788800"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-13T07:00:00Z"),
-        vagas_oferecidas: 3,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "88899900022"}),
-        rota_info: db.rotas.findOne({codigo_rota: "AFO-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "77799900011"}),
-            db.passageiros.findOne({cpf: "88811122233"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-13T07:30:00Z"),
-        vagas_oferecidas: 2,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "99900011133"}),
-        rota_info: db.rotas.findOne({codigo_rota: "DOU-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "99922233344"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-13T08:00:00Z"),
-        vagas_oferecidas: 3,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "00011122244"}),
-        rota_info: db.rotas.findOne({codigo_rota: "CAX-CINFO"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "00033344455"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-14T07:00:00Z"),
-        vagas_oferecidas: 4,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "11133355577"}),
-        rota_info: db.rotas.findOne({codigo_rota: "IP-CAR"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "11144455566"}),
-            db.passageiros.findOne({cpf: "22233344466"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-14T07:30:00Z"),
-        vagas_oferecidas: 2,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "22244466688"}),
-        rota_info: db.rotas.findOne({codigo_rota: "BV-CAR"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "33344455577"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-14T08:00:00Z"),
-        vagas_oferecidas: 3,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "33355577799"}),
-        rota_info: db.rotas.findOne({codigo_rota: "GR-CAR"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "44455566688"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-14T08:30:00Z"),
-        vagas_oferecidas: 3,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "44466688800"}),
-        rota_info: db.rotas.findOne({codigo_rota: "SAN-CAR"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "55566677799"})
-        ]
-    },
-    {
-        data_hora_saida: new ISODate("2025-09-14T09:00:00Z"),
-        vagas_oferecidas: 2,
-        status: "Agendada",
-        motorista_info: db.motoristas.findOne({cpf: "55577799911"}),
-        rota_info: db.rotas.findOne({codigo_rota: "ESP-CAR"}),
-        passageiros_confirmados: [
-            db.passageiros.findOne({cpf: "66677788800"})
-        ]
-    }
+  {
+    data_hora_saida: new ISODate("2025-09-10T07:00:00Z"),
+    vagas_oferecidas: 3,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "11122233344" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "REC-CINFO" }),
+    passageiros_confirmados: [
+      db.passageiros.findOne({ cpf: "77788899900" }),
+      db.passageiros.findOne({ cpf: "99900011122" }),
+    ],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-10T07:30:00Z"),
+    vagas_oferecidas: 2,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "22233344455" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "BV-CINFO" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "00011122233" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-11T08:00:00Z"),
+    vagas_oferecidas: 3,
+    status: "Concluída",
+    motorista_info: db.motoristas.findOne({ cpf: "33344455566" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "CAR-CAA" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "88899900011" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-11T07:00:00Z"),
+    vagas_oferecidas: 3,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "44455566677" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "IP-CINFO" }),
+    passageiros_confirmados: [
+      db.passageiros.findOne({ cpf: "11122233355" }),
+      db.passageiros.findOne({ cpf: "22233344466" }),
+    ],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-11T07:30:00Z"),
+    vagas_oferecidas: 2,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "55566677788" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "GR-CINFO" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "33344455577" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-12T08:00:00Z"),
+    vagas_oferecidas: 4,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "11122233344" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "BV-CINFO" }),
+    passageiros_confirmados: [
+      db.passageiros.findOne({ cpf: "77788899900" }),
+      db.passageiros.findOne({ cpf: "00011122233" }),
+    ],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-12T09:00:00Z"),
+    vagas_oferecidas: 3,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "66677788899" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "SAN-CINFO" }),
+    passageiros_confirmados: [
+      db.passageiros.findOne({ cpf: "44455566688" }),
+      db.passageiros.findOne({ cpf: "55566677799" }),
+    ],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-12T09:30:00Z"),
+    vagas_oferecidas: 2,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "77788899911" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "ESP-CINFO" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "66677788800" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-13T07:00:00Z"),
+    vagas_oferecidas: 3,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "88899900022" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "AFO-CINFO" }),
+    passageiros_confirmados: [
+      db.passageiros.findOne({ cpf: "77799900011" }),
+      db.passageiros.findOne({ cpf: "88811122233" }),
+    ],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-13T07:30:00Z"),
+    vagas_oferecidas: 2,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "99900011133" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "DOU-CINFO" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "99922233344" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-13T08:00:00Z"),
+    vagas_oferecidas: 3,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "00011122244" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "CAX-CINFO" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "00033344455" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-14T07:00:00Z"),
+    vagas_oferecidas: 4,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "11133355577" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "IP-CAR" }),
+    passageiros_confirmados: [
+      db.passageiros.findOne({ cpf: "11144455566" }),
+      db.passageiros.findOne({ cpf: "22233344466" }),
+    ],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-14T07:30:00Z"),
+    vagas_oferecidas: 2,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "22244466688" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "BV-CAR" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "33344455577" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-14T08:00:00Z"),
+    vagas_oferecidas: 3,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "33355577799" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "GR-CAR" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "44455566688" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-14T08:30:00Z"),
+    vagas_oferecidas: 3,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "44466688800" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "SAN-CAR" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "55566677799" })],
+  },
+  {
+    data_hora_saida: new ISODate("2025-09-14T09:00:00Z"),
+    vagas_oferecidas: 2,
+    status: "Agendada",
+    motorista_info: db.motoristas.findOne({ cpf: "55577799911" }),
+    rota_info: db.rotas.findOne({ codigo_rota: "ESP-CAR" }),
+    passageiros_confirmados: [db.passageiros.findOne({ cpf: "66677788800" })],
+  },
 ]);
